@@ -122,14 +122,14 @@ cocos-2dx 3.17 学习笔记
 
   + 创建节点
 
-    ```
+    ```lua
     cc.Node:create()
     ```
 
   + 增加新子节点
 
-    ```
-    node:->addChild(childNode, 0, 123)
+    ```lua
+    node:addChild(childNode, 0, 123)
     ```
 
     + 第二个参数Z轴绘制顺序
@@ -138,25 +138,25 @@ cocos-2dx 3.17 学习笔记
 
   + 通过标签删除子节点，并停止所有该节点上的一切动作。
 
-    ```
+    ```lua
     node:removeChildByTag(123, true) 
     ```
 
   + 删除childNode节点。并停止所有该子节点上的一切动作。
 
-    ```
+    ```lua
     node:removeChild(childNode, true)
     ```
 
   + 删除node节点的所有子节点，并停止这些子节点上的一切动作。
 
-    ```
+    ```lua
     node:removeAllChildrenWithCleanup(true)
     ```
 
   + 从父节点删除node节点，并停止所有该节点上的一切动作。
 
-    ```
+    ```lua
     node:removeFromParentAndCleanup(true)
     ```
 
@@ -178,31 +178,31 @@ cocos-2dx 3.17 学习笔记
 
   + 创建精灵对象
 
-    ```
+    ```lua
     cc.Sprite:create ()
     ```
 
   + 指定图片创建精灵
 
-    ```
+    ```lua
     cc.Sprite:create (filename)
     ```
 
   + 指定图片和裁剪的矩形区域来创建精灵
 
-    ```
+    ```lua
     cc.Sprite:create (filename, rect)
     ```
 
   + 指定纹理创建精灵
 
-    ```
+    ```lua
     cc.Sprite:createWithTexture (texture)
     ```
 
   + 指定纹理和裁剪的矩形区域来创建精灵，第三个参数是否旋转纹理，默认不旋转
 
-    ```
+    ```lua
     cc.Sprite:createWithTexture (texture, rect, rotated=false)
     ```
 
@@ -233,6 +233,7 @@ cocos-2dx 3.17 学习笔记
 ### ParticleSystem（粒子系统）
 
 + 作用：游戏中常用的特效
+
 + 原理
   + 包含两部分
     + 粒子
@@ -243,7 +244,28 @@ cocos-2dx 3.17 学习笔记
     + 出生：粒子存储在引擎中的粒子池中，使用时先将粒子设置好初始属性值，再发射粒子
     + 成长：在发射后不断刷新修正粒子自身的属性
     + 死亡：生存时间结束后粒子死亡，重新回到粒子池中等待下一个生命周期激活
+  
 + 使用方法
+
+  + 首先获取到要创建的粒子效果（举例中使用的是Rain效果）
+
+  ```lua
+  local test = CCParticleRain:create()
+  ```
+
+  + 记载粒子所使用的图片资源（最好是64 * 64，越大的话加载速度越慢，执行所占空间更多）
+
+  ```lua
+  test:setTexture(cc.Director:getInstance():getTextureCache():addImage("wall.png"))
+  ```
+
+  + 自动释放资源粒子资源（true为自动释放，false为非自动释放）
+
+  ```lua
+    test:setAutoRemoveOnFinish(true)
+  ```
+
+  
 
 ### Widget
 
@@ -255,5 +277,25 @@ cocos-2dx 3.17 学习笔记
 
 + 使用方法
 
-  ​		先导入扩展库.
+  + 创建对象Scale9Sprite对象精灵
+  
+  ```lua
+  local S9S = cc.Scale9Sprite:create("xxx.png")
+  ```
+  
+  + 设置“5”的大小（0,0为“5”的左下角，20，30为“5”的宽高）
+  
+  ```lua
+  sprite:setCapInsets(CCRectMake(0, 0, 20, 30))
+  ```
+  
+  + 设置9妹的最终拉伸情况
+  
+  ```lua
+  sprite:setContentSizr(cc.size(80, 60))
+  ```
+  
+  
+
+
 
